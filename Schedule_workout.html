@@ -5,7 +5,6 @@
 <title>Workout Calendar</title>
 
 <style>
-
 body{
 font-family:Arial;
 background:#f4f6f8;
@@ -69,7 +68,6 @@ margin:3px;
 }
 
 /* Popup */
-
 #infoModal{
 display:none;
 position:fixed;
@@ -88,7 +86,6 @@ margin:100px auto;
 border-radius:10px;
 text-align:left;
 }
-
 </style>
 </head>
 
@@ -115,226 +112,158 @@ text-align:left;
 </div>
 
 <script>
-
 let currentMonth=2;
 let currentYear=2026;
 
-/* Workout plan */
-
+/* Workout plan with recommended sets/reps */
 const workouts={
 "Mon":{
-warmup:["Jumping jacks","Arm circles","Squats"],
-main:["Push ups","Plank","Leg raises"],
-cooldown:["Chest stretch","Shoulder stretch","Child pose"]
+warmup:[{name:"Jumping jacks", sets:1, reps:"60 sec"},
+       {name:"Arm circles", sets:1, reps:"30 sec"},
+       {name:"Squats", sets:1, reps:"10"}],
+main:[{name:"Push ups", sets:4, reps:10},
+      {name:"Plank", sets:3, reps:"40 sec"},
+      {name:"Leg raises", sets:3, reps:10}],
+cooldown:[{name:"Chest stretch", sets:1, reps:"30 sec"},
+          {name:"Shoulder stretch", sets:1, reps:"30 sec"},
+          {name:"Child pose", sets:1, reps:"1 min"}]
 },
 "Tue":{
-warmup:["Light jog","Leg swing"],
-main:["Jogging"],
-cooldown:["Hamstring stretch","Quad stretch"]
+warmup:[{name:"Light jog", sets:1, reps:"2 min"},
+       {name:"Leg swing", sets:1, reps:"10 each leg"}],
+main:[{name:"Jogging", sets:1, reps:"2-3 km"}],
+cooldown:[{name:"Hamstring stretch", sets:1, reps:"30 sec"},
+          {name:"Quad stretch", sets:1, reps:"30 sec"}]
 },
 "Wed":{
-warmup:["Arm swing","Scapula activation"],
-main:["Pull ups","Dead hang","Scapula pull ups"],
-cooldown:["Lat stretch","Forearm stretch"]
+warmup:[{name:"Arm swing", sets:1, reps:"10 reps"},
+       {name:"Scapula activation", sets:1, reps:"5 reps"}],
+main:[{name:"Pull ups", sets:4, reps:"max"},
+      {name:"Dead hang", sets:3, reps:"40 sec"},
+      {name:"Scapula pull ups", sets:3, reps:10}],
+cooldown:[{name:"Lat stretch", sets:1, reps:"30 sec"},
+          {name:"Forearm stretch", sets:1, reps:"30 sec"}]
 },
 "Fri":{
-warmup:["Arm circles","Shoulder mobility"],
-main:["Pike push ups","Russian twist"],
-cooldown:["Shoulder stretch"]
+warmup:[{name:"Arm circles", sets:1, reps:"30 sec"},
+       {name:"Shoulder mobility", sets:1, reps:"10 reps"}],
+main:[{name:"Pike push ups", sets:4, reps:8},
+      {name:"Russian twist", sets:3, reps:20}],
+cooldown:[{name:"Shoulder stretch", sets:1, reps:"30 sec"}]
 },
 "Sat":{
-warmup:["Dynamic stretch"],
-main:["Climbing","Squats","Plank"],
-cooldown:["Hip flexor stretch","Back stretch"]
+warmup:[{name:"Dynamic stretch", sets:1, reps:"2 min"}],
+main:[{name:"Climbing", sets:1, reps:"practice"},
+      {name:"Squats", sets:3, reps:12},
+      {name:"Plank", sets:3, reps:"45 sec"}],
+cooldown:[{name:"Hip flexor stretch", sets:1, reps:"30 sec"},
+          {name:"Back stretch", sets:1, reps:"30 sec"}]
 }
 };
 
 /* Exercise instructions */
-
 const exerciseInfo={
-
 "Jumping jacks":"Jump while spreading your legs and raising arms overhead. Return to start position.",
-
 "Arm circles":"Extend arms sideways and rotate them slowly forward and backward.",
-
 "Squats":"Stand shoulder width apart. Bend knees and lower hips like sitting on a chair.",
-
 "Push ups":"Place hands under shoulders. Lower chest to floor then push back up.",
-
 "Plank":"Hold body straight with forearms on floor. Tighten core and avoid sagging hips.",
-
 "Leg raises":"Lie on back and raise legs upward while keeping them straight.",
-
 "Light jog":"Jog slowly to warm up your muscles.",
-
 "Leg swing":"Swing one leg forward and backward to loosen hip joints.",
-
 "Jogging":"Run at a steady pace to build stamina.",
-
 "Arm swing":"Swing arms gently to loosen shoulders.",
-
 "Scapula activation":"Hang from bar and pull shoulders down without bending arms.",
-
 "Pull ups":"Pull your body upward until chin passes the bar.",
-
 "Dead hang":"Hang from bar with arms extended to build grip strength.",
-
 "Scapula pull ups":"Hang from bar and pull shoulder blades down and together.",
-
 "Pike push ups":"Bend at hips forming a V shape and perform push ups focusing on shoulders.",
-
 "Russian twist":"Sit slightly leaned back and rotate torso side to side.",
-
 "Climbing":"Practice climbing routes or bouldering problems.",
-
 "Dynamic stretch":"Perform moving stretches to warm up muscles.",
-
 "Chest stretch":"Extend arms behind and open chest to stretch chest muscles.",
-
 "Shoulder stretch":"Pull one arm across chest to stretch shoulder.",
-
 "Child pose":"Kneel and stretch arms forward on floor while sitting back on heels.",
-
 "Hamstring stretch":"Extend leg and reach toward toes.",
-
 "Quad stretch":"Pull heel toward butt while standing.",
-
 "Lat stretch":"Reach arms overhead and lean to side.",
-
 "Forearm stretch":"Pull fingers backward with other hand.",
-
 "Hip flexor stretch":"Lunge forward and push hips down.",
-
 "Back stretch":"Bend forward gently to stretch lower back."
 };
 
-
 /* Calendar */
-
 function generateCalendar(){
-
 const calendar=document.getElementById("calendar");
 calendar.innerHTML="";
-
 let firstDay=new Date(currentYear,currentMonth,1).getDay();
 let days=new Date(currentYear,currentMonth+1,0).getDate();
-
 document.getElementById("monthTitle").innerText=
 new Date(currentYear,currentMonth).toLocaleString('default',{month:'long'})+" "+currentYear;
 
-for(let i=0;i<firstDay;i++){
-calendar.appendChild(document.createElement("div"));
-}
+for(let i=0;i<firstDay;i++) calendar.appendChild(document.createElement("div"));
 
 for(let d=1;d<=days;d++){
-
 let date=new Date(currentYear,currentMonth,d);
 let today=new Date();
-
 let cell=document.createElement("div");
 cell.className="day";
 cell.innerText=d;
-
-if(d===today.getDate() && currentMonth===today.getMonth() && currentYear===today.getFullYear()){
-cell.classList.add("today");
-}
-
+if(d===today.getDate() && currentMonth===today.getMonth() && currentYear===today.getFullYear()) cell.classList.add("today");
 cell.onclick=()=>showWorkout(date);
-
 calendar.appendChild(cell);
 }
 }
 
-
-/* Show workout */
-
+/* Show workout with sets/reps */
 function showWorkout(date){
-
 let day=date.toLocaleDateString('en',{weekday:'short'});
 let data=workouts[day];
-
 let html="<h3>"+date.toDateString()+"</h3>";
-
-if(!data){
-html+="Rest Day";
-}else{
-
+if(!data){ html+="Rest Day"; }
+else{
 html+="<h4>Warm Up</h4>";
-
 data.warmup.forEach(w=>{
-html+=`<div>${w}
-<button class="infoBtn" onclick="showInfo('${w}')">ℹ</button>
+html+=`<div>${w.name} (${w.sets} sets x ${w.reps})
+<button class="infoBtn" onclick="showInfo('${w.name}')">ℹ</button>
 </div>`;
 });
 
 html+="<h4>Workout</h4>";
-
 data.main.forEach(w=>{
-html+=`
-<div>
-${w}
-<button class="infoBtn" onclick="showInfo('${w}')">ℹ</button>
-<br>
+html+=`<div>${w.name} (${w.sets} sets x ${w.reps})
+<button class="infoBtn" onclick="showInfo('${w.name}')">ℹ</button><br>
 Sets Achieved <input type="number">
 Reps/Time <input type="number">
-</div>
-`;
-});
-
-html+="<h4>Cool Down</h4>";
-
-data.cooldown.forEach(c=>{
-html+=`<div>${c}
-<button class="infoBtn" onclick="showInfo('${c}')">ℹ</button>
 </div>`;
 });
 
+html+="<h4>Cool Down</h4>";
+data.cooldown.forEach(c=>{
+html+=`<div>${c.name} (${c.sets} sets x ${c.reps})
+<button class="infoBtn" onclick="showInfo('${c.name}')">ℹ</button>
+</div>`;
 }
-
+);
+}
 document.getElementById("details").innerHTML=html;
 }
 
-
 /* Info popup */
-
 function showInfo(name){
-
 document.getElementById("exerciseTitle").innerText=name;
-
 document.getElementById("exerciseInfo").innerText=
 exerciseInfo[name] || "No information available.";
-
 document.getElementById("infoModal").style.display="block";
 }
-
-function closeModal(){
-document.getElementById("infoModal").style.display="none";
-}
-
+function closeModal(){ document.getElementById("infoModal").style.display="none"; }
 
 /* Month navigation */
-
-function prevMonth(){
-currentMonth--;
-if(currentMonth<0){
-currentMonth=11;
-currentYear--;
-}
-generateCalendar();
-}
-
-function nextMonth(){
-currentMonth++;
-if(currentMonth>11){
-currentMonth=0;
-currentYear++;
-}
-generateCalendar();
-}
+function prevMonth(){ currentMonth--; if(currentMonth<0){ currentMonth=11; currentYear--; } generateCalendar(); }
+function nextMonth(){ currentMonth++; if(currentMonth>11){ currentMonth=0; currentYear++; } generateCalendar(); }
 
 generateCalendar();
 
 </script>
-
 </body>
 </html>
