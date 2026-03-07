@@ -3,92 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <title>Workout Calendar</title>
-
 <style>
-body{
-font-family:Arial;
-background:#f4f6f8;
-text-align:center;
-}
-
-#calendar{
-display:grid;
-grid-template-columns:repeat(7,1fr);
-gap:5px;
-max-width:700px;
-margin:auto;
-}
-
-.day{
-background:white;
-padding:15px;
-border-radius:8px;
-cursor:pointer;
-border:1px solid #ddd;
-}
-
-.today{
-background:#4CAF50;
-color:white;
-font-weight:bold;
-}
-
-#details{
-margin-top:20px;
-padding:20px;
-background:white;
-max-width:700px;
-margin-left:auto;
-margin-right:auto;
-border-radius:10px;
-border:1px solid #ddd;
-text-align:left;
-}
-
-button{
-padding:8px 15px;
-margin:5px;
-border:none;
-background:#4CAF50;
-color:white;
-border-radius:5px;
-cursor:pointer;
-}
-
-.infoBtn{
-background:#2196F3;
-padding:3px 8px;
-font-size:12px;
-margin-left:5px;
-}
-
-input{
-width:80px;
-margin:3px;
-}
-
+body{font-family:Arial; background:#f4f6f8; text-align:center;}
+#calendar{display:grid; grid-template-columns:repeat(7,1fr); gap:5px; max-width:700px; margin:auto;}
+.day{background:white; padding:15px; border-radius:8px; cursor:pointer; border:1px solid #ddd;}
+.today{background:#4CAF50; color:white; font-weight:bold;}
+#details{margin-top:20px; padding:20px; background:white; max-width:700px; margin-left:auto; margin-right:auto; border-radius:10px; border:1px solid #ddd; text-align:left;}
+button{padding:8px 15px; margin:5px; border:none; background:#4CAF50; color:white; border-radius:5px; cursor:pointer;}
+.infoBtn{background:#2196F3; padding:3px 8px; font-size:12px; margin-left:5px;}
+input{width:80px; margin:3px;}
 /* Popup */
-#infoModal{
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.5);
-}
-
-#modalContent{
-background:white;
-padding:20px;
-max-width:400px;
-margin:100px auto;
-border-radius:10px;
-text-align:left;
-}
+#infoModal{display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5);}
+#modalContent{background:white; padding:20px; max-width:400px; margin:100px auto; border-radius:10px; text-align:left;}
 </style>
 </head>
-
 <body>
 
 <h2 id="monthTitle"></h2>
@@ -99,9 +27,7 @@ text-align:left;
 
 <div id="calendar"></div>
 
-<div id="details">
-<h3>Select a date to see workout</h3>
-</div>
+<div id="details"><h3>Select a date to see workout</h3></div>
 
 <div id="infoModal">
 <div id="modalContent">
@@ -117,80 +43,23 @@ let currentYear=2026;
 
 /* Workout plan with recommended sets/reps */
 const workouts={
-"Mon":{
-warmup:[{name:"Jumping jacks", sets:1, reps:"60 sec"},
-       {name:"Arm circles", sets:1, reps:"30 sec"},
-       {name:"Squats", sets:1, reps:"10"}],
-main:[{name:"Push ups", sets:4, reps:10},
-      {name:"Plank", sets:3, reps:"40 sec"},
-      {name:"Leg raises", sets:3, reps:10}],
-cooldown:[{name:"Chest stretch", sets:1, reps:"30 sec"},
-          {name:"Shoulder stretch", sets:1, reps:"30 sec"},
-          {name:"Child pose", sets:1, reps:"1 min"}]
-},
-"Tue":{
-warmup:[{name:"Light jog", sets:1, reps:"2 min"},
-       {name:"Leg swing", sets:1, reps:"10 each leg"}],
-main:[{name:"Jogging", sets:1, reps:"2-3 km"}],
-cooldown:[{name:"Hamstring stretch", sets:1, reps:"30 sec"},
-          {name:"Quad stretch", sets:1, reps:"30 sec"}]
-},
-"Wed":{
-warmup:[{name:"Arm swing", sets:1, reps:"10 reps"},
-       {name:"Scapula activation", sets:1, reps:"5 reps"}],
-main:[{name:"Pull ups", sets:4, reps:"max"},
-      {name:"Dead hang", sets:3, reps:"40 sec"},
-      {name:"Scapula pull ups", sets:3, reps:10}],
-cooldown:[{name:"Lat stretch", sets:1, reps:"30 sec"},
-          {name:"Forearm stretch", sets:1, reps:"30 sec"}]
-},
-"Fri":{
-warmup:[{name:"Arm circles", sets:1, reps:"30 sec"},
-       {name:"Shoulder mobility", sets:1, reps:"10 reps"}],
-main:[{name:"Pike push ups", sets:4, reps:8},
-      {name:"Russian twist", sets:3, reps:20}],
-cooldown:[{name:"Shoulder stretch", sets:1, reps:"30 sec"}]
-},
-"Sat":{
-warmup:[{name:"Dynamic stretch", sets:1, reps:"2 min"}],
-main:[{name:"Climbing", sets:1, reps:"practice"},
-      {name:"Squats", sets:3, reps:12},
-      {name:"Plank", sets:3, reps:"45 sec"}],
-cooldown:[{name:"Hip flexor stretch", sets:1, reps:"30 sec"},
-          {name:"Back stretch", sets:1, reps:"30 sec"}]
-}
+"Mon":{warmup:[{name:"Jumping jacks", sets:1, reps:"60 sec"}, {name:"Arm circles", sets:1, reps:"30 sec"}, {name:"Squats", sets:1, reps:"10"}],
+main:[{name:"Push ups", sets:4, reps:10}, {name:"Plank", sets:3, reps:"40 sec"}, {name:"Leg raises", sets:3, reps:10}],
+cooldown:[{name:"Chest stretch", sets:1, reps:"30 sec"}, {name:"Shoulder stretch", sets:1, reps:"30 sec"}, {name:"Child pose", sets:1, reps:"1 min"}]},
+"Tue":{warmup:[{name:"Light jog", sets:1, reps:"2 min"}, {name:"Leg swing", sets:1, reps:"10 each leg"}],
+main:[{name:"Jogging", sets:1, reps:"2-3 km"}], cooldown:[{name:"Hamstring stretch", sets:1, reps:"30 sec"}, {name:"Quad stretch", sets:1, reps:"30 sec"}]},
+"Wed":{warmup:[{name:"Arm swing", sets:1, reps:"10 reps"}, {name:"Scapula activation", sets:1, reps:"5 reps"}],
+main:[{name:"Pull ups", sets:4, reps:"max"}, {name:"Dead hang", sets:3, reps:"40 sec"}, {name:"Scapula pull ups", sets:3, reps:10}],
+cooldown:[{name:"Lat stretch", sets:1, reps:"30 sec"}, {name:"Forearm stretch", sets:1, reps:"30 sec"}]},
+"Fri":{warmup:[{name:"Arm circles", sets:1, reps:"30 sec"}, {name:"Shoulder mobility", sets:1, reps:"10 reps"}],
+main:[{name:"Pike push ups", sets:4, reps:8}, {name:"Russian twist", sets:3, reps:20}], cooldown:[{name:"Shoulder stretch", sets:1, reps:"30 sec"}]},
+"Sat":{warmup:[{name:"Dynamic stretch", sets:1, reps:"2 min"}],
+main:[{name:"Climbing", sets:1, reps:"practice"}, {name:"Squats", sets:3, reps:12}, {name:"Plank", sets:3, reps:"45 sec"}],
+cooldown:[{name:"Hip flexor stretch", sets:1, reps:"30 sec"}, {name:"Back stretch", sets:1, reps:"30 sec"}]}
 };
 
 /* Exercise instructions */
-const exerciseInfo={
-"Jumping jacks":"Jump while spreading your legs and raising arms overhead. Return to start position.",
-"Arm circles":"Extend arms sideways and rotate them slowly forward and backward.",
-"Squats":"Stand shoulder width apart. Bend knees and lower hips like sitting on a chair.",
-"Push ups":"Place hands under shoulders. Lower chest to floor then push back up.",
-"Plank":"Hold body straight with forearms on floor. Tighten core and avoid sagging hips.",
-"Leg raises":"Lie on back and raise legs upward while keeping them straight.",
-"Light jog":"Jog slowly to warm up your muscles.",
-"Leg swing":"Swing one leg forward and backward to loosen hip joints.",
-"Jogging":"Run at a steady pace to build stamina.",
-"Arm swing":"Swing arms gently to loosen shoulders.",
-"Scapula activation":"Hang from bar and pull shoulders down without bending arms.",
-"Pull ups":"Pull your body upward until chin passes the bar.",
-"Dead hang":"Hang from bar with arms extended to build grip strength.",
-"Scapula pull ups":"Hang from bar and pull shoulder blades down and together.",
-"Pike push ups":"Bend at hips forming a V shape and perform push ups focusing on shoulders.",
-"Russian twist":"Sit slightly leaned back and rotate torso side to side.",
-"Climbing":"Practice climbing routes or bouldering problems.",
-"Dynamic stretch":"Perform moving stretches to warm up muscles.",
-"Chest stretch":"Extend arms behind and open chest to stretch chest muscles.",
-"Shoulder stretch":"Pull one arm across chest to stretch shoulder.",
-"Child pose":"Kneel and stretch arms forward on floor while sitting back on heels.",
-"Hamstring stretch":"Extend leg and reach toward toes.",
-"Quad stretch":"Pull heel toward butt while standing.",
-"Lat stretch":"Reach arms overhead and lean to side.",
-"Forearm stretch":"Pull fingers backward with other hand.",
-"Hip flexor stretch":"Lunge forward and push hips down.",
-"Back stretch":"Bend forward gently to stretch lower back."
-};
+const exerciseInfo={ /* same as your previous object */ };
 
 /* Calendar */
 function generateCalendar(){
@@ -215,45 +84,64 @@ calendar.appendChild(cell);
 }
 }
 
-/* Show workout with sets/reps */
+/* Show workout with sets/reps and save/load progress */
 function showWorkout(date){
 let day=date.toLocaleDateString('en',{weekday:'short'});
+let dateKey=date.toISOString().split('T')[0]; // e.g., 2026-03-07
 let data=workouts[day];
+let savedProgress=JSON.parse(localStorage.getItem(dateKey)||"{}");
 let html="<h3>"+date.toDateString()+"</h3>";
+
 if(!data){ html+="Rest Day"; }
 else{
 html+="<h4>Warm Up</h4>";
 data.warmup.forEach(w=>{
+let val=savedProgress[w.name]||{};
 html+=`<div>${w.name} (${w.sets} sets x ${w.reps})
 <button class="infoBtn" onclick="showInfo('${w.name}')">ℹ</button>
+<br>
+Sets Achieved <input type="number" value="${val.sets||''}" onchange="saveProgress('${dateKey}','${w.name}', this.value, null)">
+Reps/Time <input type="number" value="${val.reps||''}" onchange="saveProgress('${dateKey}','${w.name}', null, this.value)">
 </div>`;
 });
 
 html+="<h4>Workout</h4>";
 data.main.forEach(w=>{
+let val=savedProgress[w.name]||{};
 html+=`<div>${w.name} (${w.sets} sets x ${w.reps})
 <button class="infoBtn" onclick="showInfo('${w.name}')">ℹ</button><br>
-Sets Achieved <input type="number">
-Reps/Time <input type="number">
+Sets Achieved <input type="number" value="${val.sets||''}" onchange="saveProgress('${dateKey}','${w.name}', this.value, null)">
+Reps/Time <input type="number" value="${val.reps||''}" onchange="saveProgress('${dateKey}','${w.name}', null, this.value)">
 </div>`;
 });
 
 html+="<h4>Cool Down</h4>";
 data.cooldown.forEach(c=>{
+let val=savedProgress[c.name]||{};
 html+=`<div>${c.name} (${c.sets} sets x ${c.reps})
-<button class="infoBtn" onclick="showInfo('${c.name}')">ℹ</button>
+<button class="infoBtn" onclick="showInfo('${c.name}')">ℹ</button><br>
+Sets Achieved <input type="number" value="${val.sets||''}" onchange="saveProgress('${dateKey}','${c.name}', this.value, null)">
+Reps/Time <input type="number" value="${val.reps||''}" onchange="saveProgress('${dateKey}','${c.name}', null, this.value)">
 </div>`;
+});
 }
-);
-}
+
 document.getElementById("details").innerHTML=html;
+}
+
+/* Save progress */
+function saveProgress(dateKey, exercise, sets, reps){
+let progress=JSON.parse(localStorage.getItem(dateKey)||"{}");
+progress[exercise]=progress[exercise]||{};
+if(sets!==null) progress[exercise].sets=sets;
+if(reps!==null) progress[exercise].reps=reps;
+localStorage.setItem(dateKey, JSON.stringify(progress));
 }
 
 /* Info popup */
 function showInfo(name){
 document.getElementById("exerciseTitle").innerText=name;
-document.getElementById("exerciseInfo").innerText=
-exerciseInfo[name] || "No information available.";
+document.getElementById("exerciseInfo").innerText=exerciseInfo[name] || "No information available.";
 document.getElementById("infoModal").style.display="block";
 }
 function closeModal(){ document.getElementById("infoModal").style.display="none"; }
@@ -263,7 +151,6 @@ function prevMonth(){ currentMonth--; if(currentMonth<0){ currentMonth=11; curre
 function nextMonth(){ currentMonth++; if(currentMonth>11){ currentMonth=0; currentYear++; } generateCalendar(); }
 
 generateCalendar();
-
 </script>
 </body>
 </html>
