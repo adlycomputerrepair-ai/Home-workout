@@ -40,10 +40,11 @@ input{width:80px; margin:3px;}
 <script>
 let currentMonth=2;
 let currentYear=2026;
-
+html+=`<h4>Pre-Workout</h4><p>${data.pre}</p>`;
 /* Workout plan for climbers */
 const workouts={
 "Mon":{
+pre:"Eat banana + peanut butter OR bread + egg. Drink water 30–90 minutes before climbing.",
 warmup:[
 {name:"Jumping jacks", sets:1, reps:"60 sec"},
 {name:"Arm circles", sets:1, reps:"30 sec"},
@@ -58,10 +59,12 @@ main:[
 cooldown:[
 {name:"Forearm stretch", sets:1, reps:"30 sec"},
 {name:"Shoulder stretch", sets:1, reps:"30 sec"}
-]
+],
+post:"Stretch forearms and shoulders. Eat eggs + bread or yogurt + fruit (20-30g protein)."
 },
 
 "Tue":{
+pre:"Light carbs like oatmeal or fruit before cardio.",
 warmup:[
 {name:"Light jog", sets:1, reps:"5 min"},
 {name:"Hip rotation", sets:1, reps:"10"}
@@ -73,10 +76,12 @@ main:[
 cooldown:[
 {name:"Hamstring stretch", sets:1, reps:"30 sec"},
 {name:"Quad stretch", sets:1, reps:"30 sec"}
-]
+],
+post:"Hydrate and eat balanced meal with protein."
 },
 
 "Wed":{
+pre:"Banana or toast with peanut butter.",
 warmup:[
 {name:"Arm swing", sets:1, reps:"30 sec"},
 {name:"Scapula activation", sets:1, reps:"10"}
@@ -89,16 +94,26 @@ main:[
 cooldown:[
 {name:"Forearm stretch", sets:1, reps:"30 sec"},
 {name:"Lat stretch", sets:1, reps:"30 sec"}
-]
+],
+post:"Stretch fingers and forearms. Eat protein meal."
 },
 
 "Thu":{
-warmup:[{name:"Dynamic stretch", sets:1, reps:"3 min"}],
-main:[{name:"Mobility session", sets:1, reps:"10 min"}],
-cooldown:[{name:"Back stretch", sets:1, reps:"1 min"}]
+pre:"Light snack if needed.",
+warmup:[
+{name:"Dynamic stretch", sets:1, reps:"3 min"}
+],
+main:[
+{name:"Mobility session", sets:1, reps:"10 min"}
+],
+cooldown:[
+{name:"Back stretch", sets:1, reps:"1 min"}
+],
+post:"Focus on hydration and recovery."
 },
 
 "Fri":{
+pre:"Bread + egg or yogurt + fruit.",
 warmup:[
 {name:"Jumping jacks", sets:1, reps:"60 sec"},
 {name:"Shoulder mobility", sets:1, reps:"10"}
@@ -111,10 +126,12 @@ main:[
 cooldown:[
 {name:"Shoulder stretch", sets:1, reps:"30 sec"},
 {name:"Back stretch", sets:1, reps:"30 sec"}
-]
+],
+post:"Protein meal within 1 hour."
 },
 
 "Sat":{
+pre:"Oatmeal or toast + eggs.",
 warmup:[
 {name:"Dynamic stretch", sets:1, reps:"2 min"}
 ],
@@ -127,12 +144,19 @@ main:[
 cooldown:[
 {name:"Hip flexor stretch", sets:1, reps:"30 sec"},
 {name:"Back stretch", sets:1, reps:"30 sec"}
-]
+],
+post:"Recovery meal with carbs + protein."
 },
 
-"Sun":null
+"Sun":{
+pre:"Rest day",
+warmup:[],
+main:[],
+cooldown:[],
+post:"Full rest and sleep."
+}
 };
-
+html+=`<h4>Post-Workout</h4><p>${data.post}</p>`;
 /* Exercise instructions */
 const exerciseInfo={
 "Jumping jacks":"Full body warmup jumping movement.",
@@ -222,40 +246,26 @@ calendar.appendChild(cell);
 }
 
 /* Show workout */
-function showWorkout(date){
-let day=date.toLocaleDateString('en',{weekday:'short'});
-let data=workouts[day];
-
-let html="<h3>"+date.toDateString()+"</h3>";
-
-if(!data){
-html+="Rest Day";
-}else{
-
-function renderList(title,list){
-html+="<h4>"+title+"</h4>";
-
-list.forEach((w,i)=>{
-
-let timer=parseTime(w.reps);
-let timerHTML="";
-
-if(timer){
-let id="timer"+Math.random().toString(36).substring(7);
-timerHTML=`
-<button onclick="startTimer(${timer},'${id}')">Start Timer</button>
-<span id="${id}" style="margin-left:10px;font-weight:bold;"></span>
-`;
+function addTimerIfNeeded(name,reps){
+if(reps.includes("sec")){
+let sec=parseInt(reps);
+return `<button onclick="startTimer(${sec})">Timer</button>`;
+}
+if(reps.includes("min")){
+let sec=parseInt(reps)*60;
+return `<button onclick="startTimer(${sec})">Timer</button>`;
+}
+return "";
 }
 
-html+=`
-<div style="margin-bottom:10px">
+html+=`<div>
 ${w.name} (${w.sets} sets x ${w.reps})
 <button class="infoBtn" onclick="showInfo('${w.name}')">ℹ</button>
+${addTimerIfNeeded(w.name,w.reps)}
 <br>
-${timerHTML}
-</div>
-`;
+Sets Achieved <input type="number" value="${val.sets||''}" onchange="saveProgress('${dateKey}','${w.name}', this.value, null)">
+Reps/Time <input type="number" value="${val.reps||''}" onchange="saveProgress('${dateKey}','${w.name}', null, this.value)">
+</div>`;
 });
 
 }
