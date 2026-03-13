@@ -12,7 +12,6 @@ body{font-family:Arial; background:#f4f6f8; text-align:center;}
 button{padding:8px 15px; margin:5px; border:none; background:#4CAF50; color:white; border-radius:5px; cursor:pointer;}
 .infoBtn{background:#2196F3; padding:3px 8px; font-size:12px; margin-left:5px;}
 input{width:80px; margin:3px;}
-/* Popup */
 #infoModal{display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5);}
 #modalContent{background:white; padding:20px; max-width:400px; margin:100px auto; border-radius:10px; text-align:left;}
 </style>
@@ -38,10 +37,11 @@ input{width:80px; margin:3px;}
 </div>
 
 <script>
+
 let currentMonth=2;
 let currentYear=2026;
-html+=`<h4>Pre-Workout</h4><p>${data.pre}</p>`;
-/* Workout plan for climbers */
+
+/* Workout plan */
 const workouts={
 "Mon":{
 pre:"Eat banana + peanut butter OR bread + egg. Drink water 30–90 minutes before climbing.",
@@ -60,7 +60,7 @@ cooldown:[
 {name:"Forearm stretch", sets:1, reps:"30 sec"},
 {name:"Shoulder stretch", sets:1, reps:"30 sec"}
 ],
-post:"Stretch forearms and shoulders. Eat eggs + bread or yogurt + fruit (20-30g protein)."
+post:"Stretch forearms and shoulders. Eat eggs + bread or yogurt + fruit."
 },
 
 "Tue":{
@@ -100,15 +100,9 @@ post:"Stretch fingers and forearms. Eat protein meal."
 
 "Thu":{
 pre:"Light snack if needed.",
-warmup:[
-{name:"Dynamic stretch", sets:1, reps:"3 min"}
-],
-main:[
-{name:"Mobility session", sets:1, reps:"10 min"}
-],
-cooldown:[
-{name:"Back stretch", sets:1, reps:"1 min"}
-],
+warmup:[{name:"Dynamic stretch", sets:1, reps:"3 min"}],
+main:[{name:"Mobility session", sets:1, reps:"10 min"}],
+cooldown:[{name:"Back stretch", sets:1, reps:"1 min"}],
 post:"Focus on hydration and recovery."
 },
 
@@ -132,9 +126,7 @@ post:"Protein meal within 1 hour."
 
 "Sat":{
 pre:"Oatmeal or toast + eggs.",
-warmup:[
-{name:"Dynamic stretch", sets:1, reps:"2 min"}
-],
+warmup:[{name:"Dynamic stretch", sets:1, reps:"2 min"}],
 main:[
 {name:"Squats", sets:4, reps:"12"},
 {name:"Pull ups", sets:4, reps:"max"},
@@ -156,38 +148,38 @@ cooldown:[],
 post:"Full rest and sleep."
 }
 };
-html+=`<h4>Post-Workout</h4><p>${data.post}</p>`;
-/* Exercise instructions */
+
+/* Exercise info */
 const exerciseInfo={
 "Jumping jacks":"Full body warmup jumping movement.",
 "Arm circles":"Rotate arms slowly to warm shoulder joints.",
 "Wrist circles":"Rotate wrists to warm up finger tendons.",
 "Scapula pull ups":"Hang and pull shoulders down without bending arms.",
-"Climbing":"Practice bouldering routes or easy climbs.",
+"Climbing":"Practice bouldering routes.",
 "Pull ups":"Pull body upward until chin passes the bar.",
-"Hanging leg raises":"Hang from bar and raise legs to activate core.",
+"Hanging leg raises":"Raise legs while hanging for core.",
 "Light jog":"Jog slowly to warm muscles.",
 "Hip rotation":"Rotate hips to loosen joints.",
-"Jogging":"Steady pace running for endurance.",
-"Plank":"Hold body straight using core muscles.",
-"Dead hang":"Hang from bar to build grip strength.",
-"Towel hang":"Hang using towel to increase grip strength.",
-"Russian twist":"Rotate torso side to side for core.",
-"Dynamic stretch":"Moving stretches for full body warmup.",
-"Mobility session":"Light stretching and mobility exercises.",
-"Back stretch":"Bend forward gently to stretch lower back.",
-"Shoulder mobility":"Shoulder joint movement warmup.",
-"Pike push ups":"Push up in pike position for shoulder strength.",
-"Squats":"Lower hips and stand up to strengthen legs.",
-"Hip flexor stretch":"Stretch front hip muscles.",
-"Lat stretch":"Reach arms overhead and lean sideways.",
-"Forearm stretch":"Pull fingers backward with opposite hand.",
-"Shoulder stretch":"Pull arm across chest.",
-"Hamstring stretch":"Reach toward toes while keeping leg straight.",
-"Quad stretch":"Pull heel to glutes while standing."
+"Jogging":"Steady pace running.",
+"Plank":"Hold body straight using core.",
+"Dead hang":"Hang from bar to build grip.",
+"Towel hang":"Hang using towel for stronger grip.",
+"Russian twist":"Rotate torso for core.",
+"Dynamic stretch":"Moving stretches.",
+"Mobility session":"Light stretching session.",
+"Back stretch":"Stretch lower back.",
+"Shoulder mobility":"Warm shoulder joints.",
+"Pike push ups":"Shoulder push ups.",
+"Squats":"Strengthen legs.",
+"Hip flexor stretch":"Stretch front hip.",
+"Lat stretch":"Stretch back muscles.",
+"Forearm stretch":"Stretch forearms.",
+"Shoulder stretch":"Stretch shoulder.",
+"Hamstring stretch":"Stretch hamstring.",
+"Quad stretch":"Stretch quadriceps."
 };
 
-/* TIMER SYSTEM */
+/* TIMER */
 let timerInterval;
 
 function startTimer(seconds,id){
@@ -197,23 +189,76 @@ let remaining=seconds;
 timerInterval=setInterval(()=>{
 let min=Math.floor(remaining/60);
 let sec=remaining%60;
-document.getElementById(id).innerText=
-(min>0?min+"m ":"")+sec+"s";
-
+document.getElementById(id).innerText=(min>0?min+"m ":"")+sec+"s";
 remaining--;
-
 if(remaining<0){
 clearInterval(timerInterval);
 document.getElementById(id).innerText="Done!";
 }
-
 },1000);
 }
 
-function parseTime(text){
-if(text.includes("sec")) return parseInt(text);
-if(text.includes("min")) return parseInt(text)*60;
-return null;
+/* Save progress */
+function saveProgress(dateKey,name,sets,reps){
+let data=JSON.parse(localStorage.getItem("workoutProgress")||"{}");
+if(!data[dateKey]) data[dateKey]={};
+if(!data[dateKey][name]) data[dateKey][name]={};
+if(sets!==null) data[dateKey][name].sets=sets;
+if(reps!==null) data[dateKey][name].reps=reps;
+localStorage.setItem("workoutProgress",JSON.stringify(data));
+}
+
+function getProgress(dateKey,name){
+let data=JSON.parse(localStorage.getItem("workoutProgress")||"{}");
+return data?.[dateKey]?.[name] || {};
+}
+
+function addTimerIfNeeded(name,reps){
+let id="timer_"+name.replace(/\s/g,'');
+if(reps.includes("sec")){
+let sec=parseInt(reps);
+return `<button onclick="startTimer(${sec},'${id}')">Timer</button> <span id="${id}"></span>`;
+}
+if(reps.includes("min")){
+let sec=parseInt(reps)*60;
+return `<button onclick="startTimer(${sec},'${id}')">Timer</button> <span id="${id}"></span>`;
+}
+return "";
+}
+
+function renderList(title,list,dateKey){
+let html=`<h4>${title}</h4>`;
+list.forEach(w=>{
+let val=getProgress(dateKey,w.name);
+html+=`
+<div>
+${w.name} (${w.sets} sets x ${w.reps})
+<button class="infoBtn" onclick="showInfo('${w.name}')">ℹ</button>
+${addTimerIfNeeded(w.name,w.reps)}
+<br>
+Sets Achieved
+<input type="number" value="${val.sets||''}" onchange="saveProgress('${dateKey}','${w.name}',this.value,null)">
+Reps/Time
+<input type="number" value="${val.reps||''}" onchange="saveProgress('${dateKey}','${w.name}',null,this.value)">
+</div>
+`;
+});
+return html;
+}
+
+function showWorkout(date){
+let day=date.toLocaleDateString('en-US',{weekday:'short'});
+let data=workouts[day];
+let dateKey=date.toISOString().split("T")[0];
+
+let html=`<h3>${day} Workout</h3>`;
+html+=`<h4>Pre-Workout</h4><p>${data.pre}</p>`;
+html+=renderList("Warm Up",data.warmup,dateKey);
+html+=renderList("Workout",data.main,dateKey);
+html+=renderList("Cool Down",data.cooldown,dateKey);
+html+=`<h4>Post-Workout</h4><p>${data.post}</p>`;
+
+document.getElementById("details").innerHTML=html;
 }
 
 /* Calendar */
@@ -245,44 +290,10 @@ calendar.appendChild(cell);
 }
 }
 
-/* Show workout */
-function addTimerIfNeeded(name,reps){
-if(reps.includes("sec")){
-let sec=parseInt(reps);
-return `<button onclick="startTimer(${sec})">Timer</button>`;
-}
-if(reps.includes("min")){
-let sec=parseInt(reps)*60;
-return `<button onclick="startTimer(${sec})">Timer</button>`;
-}
-return "";
-}
-
-html+=`<div>
-${w.name} (${w.sets} sets x ${w.reps})
-<button class="infoBtn" onclick="showInfo('${w.name}')">ℹ</button>
-${addTimerIfNeeded(w.name,w.reps)}
-<br>
-Sets Achieved <input type="number" value="${val.sets||''}" onchange="saveProgress('${dateKey}','${w.name}', this.value, null)">
-Reps/Time <input type="number" value="${val.reps||''}" onchange="saveProgress('${dateKey}','${w.name}', null, this.value)">
-</div>`;
-});
-
-}
-
-renderList("Warm Up",data.warmup);
-renderList("Workout",data.main);
-renderList("Cool Down",data.cooldown);
-
-}
-
-document.getElementById("details").innerHTML=html;
-}
-
-/* Info popup */
+/* Popup */
 function showInfo(name){
 document.getElementById("exerciseTitle").innerText=name;
-document.getElementById("exerciseInfo").innerText=exerciseInfo[name] || "No information available.";
+document.getElementById("exerciseInfo").innerText=exerciseInfo[name] || "";
 document.getElementById("infoModal").style.display="block";
 }
 
@@ -290,7 +301,7 @@ function closeModal(){
 document.getElementById("infoModal").style.display="none";
 }
 
-/* Month navigation */
+/* Navigation */
 function prevMonth(){
 currentMonth--;
 if(currentMonth<0){currentMonth=11;currentYear--;}
@@ -304,6 +315,7 @@ generateCalendar();
 }
 
 generateCalendar();
+
 </script>
 </body>
 </html>
