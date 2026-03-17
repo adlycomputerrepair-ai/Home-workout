@@ -44,78 +44,89 @@ let currentYear=2026;
 /* Workout plan */
 const workouts={
 "Mon":{
-pre:"Eat banana + peanut butter OR bread + egg. Drink water 30–90 minutes before climbing.",
+pre:"Banana + peanut butter or bread + egg. Hydrate well before climbing.",
 warmup:[
 {name:"Jumping jacks", sets:1, reps:"60 sec"},
 {name:"Arm circles", sets:1, reps:"30 sec"},
 {name:"Wrist circles", sets:1, reps:"30 sec"},
-{name:"Scapula pull ups", sets:1, reps:"10"}
+{name:"Scapula pull ups", sets:2, reps:"10"}
 ],
 main:[
-{name:"Climbing", sets:1, reps:"practice"},
-{name:"Pull ups", sets:4, reps:"6-8"},
+{name:"Climbing (Technique focus)", sets:1, reps:"practice"},
+{name:"Pull ups", sets:4, reps:"5-7"},
+{name:"Single-arm dumbbell row", sets:3, reps:"10 each"},
 {name:"Hanging leg raises", sets:3, reps:"10"}
 ],
 cooldown:[
 {name:"Forearm stretch", sets:1, reps:"30 sec"},
 {name:"Shoulder stretch", sets:1, reps:"30 sec"}
 ],
-post:"Stretch forearms and shoulders. Eat eggs + bread or yogurt + fruit."
+post:"Protein + carbs (eggs + bread or shake). Focus on recovery."
 },
 
 "Tue":{
-pre:"Light carbs like oatmeal or fruit before cardio.",
+pre:"Light carbs like fruit or oats.",
 warmup:[
 {name:"Light jog", sets:1, reps:"5 min"},
 {name:"Hip rotation", sets:1, reps:"10"}
 ],
 main:[
-{name:"Jogging", sets:1, reps:"3-5 km"},
-{name:"Plank", sets:3, reps:"40 sec"}
+{name:"Jogging", sets:1, reps:"3-4 km"},
+{name:"Plank", sets:3, reps:"45 sec"},
+{name:"Russian twist", sets:3, reps:"20"}
 ],
 cooldown:[
 {name:"Hamstring stretch", sets:1, reps:"30 sec"},
 {name:"Quad stretch", sets:1, reps:"30 sec"}
 ],
-post:"Hydrate and eat balanced meal with protein."
+post:"Hydrate and eat balanced meal."
 },
 
 "Wed":{
-pre:"Banana or toast with peanut butter.",
+pre:"Banana or toast.",
 warmup:[
 {name:"Arm swing", sets:1, reps:"30 sec"},
-{name:"Scapula activation", sets:1, reps:"10"}
+{name:"Scapula activation", sets:2, reps:"10"}
 ],
 main:[
 {name:"Dead hang", sets:4, reps:"30 sec"},
 {name:"Towel hang", sets:3, reps:"20 sec"},
-{name:"Russian twist", sets:3, reps:"20"}
+{name:"Single-arm farmer hold", sets:3, reps:"30 sec each"},
+{name:"Hammer curl (dumbbell)", sets:3, reps:"12"}
 ],
 cooldown:[
 {name:"Forearm stretch", sets:1, reps:"30 sec"},
 {name:"Lat stretch", sets:1, reps:"30 sec"}
 ],
-post:"Stretch fingers and forearms. Eat protein meal."
+post:"Protein meal. Prioritize forearm recovery."
 },
 
 "Thu":{
-pre:"Light snack if needed.",
-warmup:[{name:"Dynamic stretch", sets:1, reps:"3 min"}],
-main:[{name:"Mobility session", sets:1, reps:"10 min"}],
-cooldown:[{name:"Back stretch", sets:1, reps:"1 min"}],
-post:"Focus on hydration and recovery."
+pre:"Light snack or rest.",
+warmup:[
+{name:"Dynamic stretch", sets:1, reps:"5 min"}
+],
+main:[
+{name:"Mobility session", sets:1, reps:"15 min"},
+{name:"Core (plank)", sets:3, reps:"40 sec"}
+],
+cooldown:[
+{name:"Back stretch", sets:1, reps:"1 min"}
+],
+post:"Hydration + light meal."
 },
 
 "Fri":{
-pre:"Bread + egg or yogurt + fruit.",
+pre:"Bread + egg or yogurt.",
 warmup:[
 {name:"Jumping jacks", sets:1, reps:"60 sec"},
 {name:"Shoulder mobility", sets:1, reps:"10"}
 ],
 main:[
-{name:"Climbing", sets:1, reps:"practice"},
-{name:"Pike push ups", sets:4, reps:"8"},
-{name:"Plank", sets:3, reps:"45 sec"}
+{name:"Climbing (Power)", sets:1, reps:"practice"},
+{name:"Pull ups", sets:4, reps:"max"},
+{name:"Pike push ups", sets:3, reps:"8"},
+{name:"Single-arm dumbbell shoulder press", sets:3, reps:"10 each"}
 ],
 cooldown:[
 {name:"Shoulder stretch", sets:1, reps:"30 sec"},
@@ -126,18 +137,21 @@ post:"Protein meal within 1 hour."
 
 "Sat":{
 pre:"Oatmeal or toast + eggs.",
-warmup:[{name:"Dynamic stretch", sets:1, reps:"2 min"}],
+warmup:[
+{name:"Dynamic stretch", sets:1, reps:"3 min"}
+],
 main:[
-{name:"Squats", sets:4, reps:"12"},
+{name:"Goblet squat (dumbbell)", sets:4, reps:"12"},
 {name:"Pull ups", sets:4, reps:"max"},
-{name:"Dead hang", sets:3, reps:"30 sec"},
+{name:"Dead hang", sets:3, reps:"40 sec"},
+{name:"Single-leg Romanian deadlift", sets:3, reps:"8 each"},
 {name:"Leg raises", sets:3, reps:"12"}
 ],
 cooldown:[
 {name:"Hip flexor stretch", sets:1, reps:"30 sec"},
 {name:"Back stretch", sets:1, reps:"30 sec"}
 ],
-post:"Recovery meal with carbs + protein."
+post:"Recovery meal (protein + carbs)."
 },
 
 "Sun":{
@@ -145,38 +159,38 @@ pre:"Rest day",
 warmup:[],
 main:[],
 cooldown:[],
-post:"Full rest and sleep."
+post:"Full rest. Sleep and recover."
 }
 };
 
 /* Exercise info */
 const exerciseInfo={
-"Jumping jacks":"Full body warmup jumping movement.",
-"Arm circles":"Rotate arms slowly to warm shoulder joints.",
-"Wrist circles":"Rotate wrists to warm up finger tendons.",
-"Scapula pull ups":"Hang and pull shoulders down without bending arms.",
-"Climbing":"Practice bouldering routes.",
-"Pull ups":"Pull body upward until chin passes the bar.",
-"Hanging leg raises":"Raise legs while hanging for core.",
-"Light jog":"Jog slowly to warm muscles.",
-"Hip rotation":"Rotate hips to loosen joints.",
-"Jogging":"Steady pace running.",
-"Plank":"Hold body straight using core.",
-"Dead hang":"Hang from bar to build grip.",
-"Towel hang":"Hang using towel for stronger grip.",
-"Russian twist":"Rotate torso for core.",
-"Dynamic stretch":"Moving stretches.",
-"Mobility session":"Light stretching session.",
-"Back stretch":"Stretch lower back.",
-"Shoulder mobility":"Warm shoulder joints.",
-"Pike push ups":"Shoulder push ups.",
-"Squats":"Strengthen legs.",
-"Hip flexor stretch":"Stretch front hip.",
-"Lat stretch":"Stretch back muscles.",
-"Forearm stretch":"Stretch forearms.",
-"Shoulder stretch":"Stretch shoulder.",
-"Hamstring stretch":"Stretch hamstring.",
-"Quad stretch":"Stretch quadriceps."
+"Jumping jacks":"Full body warm-up. Jump while spreading legs and raising arms overhead, then return to start. Keep light on your feet and maintain steady rhythm. Helps increase heart rate and blood flow.",
+"Arm circles":"Extend arms to the side and rotate in small to large circles. Do forward and backward. Keep shoulders relaxed. Warms up shoulder joints and prevents injury.",
+"Wrist circles":"Rotate wrists slowly in both directions. Keep fingers relaxed. Important for climbers to prepare tendons and reduce risk of strain.",
+"Scapula pull ups":"Hang on bar with straight arms. Pull shoulders down (engage scapula) without bending elbows. Builds shoulder stability and prevents injury.",
+"Climbing":"Focus on technique, not just strength. Use legs more than arms, keep hips close to wall, and control movements. Improves coordination, grip, and endurance.",
+"Pull ups":"Grip bar shoulder-width. Pull until chin passes bar. Avoid swinging. Control the way down. Builds back and arm strength essential for climbing.",
+"Hanging leg raises":"Hang from bar and raise legs to 90° or higher. Keep core tight and avoid swinging. Strengthens core for body tension on wall.",
+"Light jog":"Slow jogging to warm up body. Keep relaxed pace. Helps increase circulation and prepare muscles.",
+"Hip rotation":"Rotate hips in circular motion. Keep movement controlled. Loosens hip joints for better mobility.",
+"Jogging":"Steady pace running. Maintain breathing rhythm. Improves stamina and recovery between climbs.",
+"Plank":"Hold straight body position. Engage core, don’t let hips drop. Builds core stability for climbing control.",
+"Dead hang":"Hang from bar with full body weight. Keep shoulders slightly engaged. Builds grip strength and finger endurance.",
+"Towel hang":"Hang using a towel over bar. Increases grip difficulty. Builds strong finger and forearm strength for climbing holds.",
+"Russian twist":"Sit and rotate torso side to side. Keep core tight. Improves rotational core strength.",
+"Dynamic stretch":"Controlled moving stretches (leg swings, arm swings). Avoid bouncing. Prepares muscles for activity.",
+"Mobility session":"Light full-body movement focusing on joints. Improves flexibility and recovery.",
+"Back stretch":"Gently stretch lower back. Hold without bouncing. Helps reduce tension after workout.",
+"Shoulder mobility":"Arm swings, rotations, and light movements. Keeps shoulders flexible and injury-free.",
+"Pike push ups":"Push-up position with hips high. Lower head toward ground. Targets shoulders for climbing pushing strength.",
+"Squats":"Feet shoulder-width apart. Lower hips down, keep chest up. Builds leg strength for pushing on wall.",
+"Hip flexor stretch":"Step forward into lunge and push hips forward. Stretches front hip muscles.",
+"Lat stretch":"Reach arms overhead or hold bar and lean back. Stretches lats used heavily in climbing.",
+"Forearm stretch":"Extend arm and pull fingers back gently. Helps reduce forearm tightness from gripping.",
+"Shoulder stretch":"Pull arm across body or overhead. Relieves shoulder tension.",
+"Hamstring stretch":"Reach toward toes while keeping legs straight. Stretches back of legs.",
+"Quad stretch":"Pull one foot toward glutes. Keep knees close together. Stretches front thigh."
 };
 
 /* TIMER */
