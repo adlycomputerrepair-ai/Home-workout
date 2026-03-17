@@ -165,32 +165,79 @@ post:"Full rest. Sleep and recover."
 
 /* Exercise info */
 const exerciseInfo={
-"Jumping jacks":"Full body warm-up. Jump while spreading legs and raising arms overhead, then return to start. Keep light on your feet and maintain steady rhythm. Helps increase heart rate and blood flow.",
-"Arm circles":"Extend arms to the side and rotate in small to large circles. Do forward and backward. Keep shoulders relaxed. Warms up shoulder joints and prevents injury.",
-"Wrist circles":"Rotate wrists slowly in both directions. Keep fingers relaxed. Important for climbers to prepare tendons and reduce risk of strain.",
-"Scapula pull ups":"Hang on bar with straight arms. Pull shoulders down (engage scapula) without bending elbows. Builds shoulder stability and prevents injury.",
-"Climbing":"Focus on technique, not just strength. Use legs more than arms, keep hips close to wall, and control movements. Improves coordination, grip, and endurance.",
-"Pull ups":"Grip bar shoulder-width. Pull until chin passes bar. Avoid swinging. Control the way down. Builds back and arm strength essential for climbing.",
-"Hanging leg raises":"Hang from bar and raise legs to 90° or higher. Keep core tight and avoid swinging. Strengthens core for body tension on wall.",
-"Light jog":"Slow jogging to warm up body. Keep relaxed pace. Helps increase circulation and prepare muscles.",
-"Hip rotation":"Rotate hips in circular motion. Keep movement controlled. Loosens hip joints for better mobility.",
-"Jogging":"Steady pace running. Maintain breathing rhythm. Improves stamina and recovery between climbs.",
-"Plank":"Hold straight body position. Engage core, don’t let hips drop. Builds core stability for climbing control.",
-"Dead hang":"Hang from bar with full body weight. Keep shoulders slightly engaged. Builds grip strength and finger endurance.",
-"Towel hang":"Hang using a towel over bar. Increases grip difficulty. Builds strong finger and forearm strength for climbing holds.",
-"Russian twist":"Sit and rotate torso side to side. Keep core tight. Improves rotational core strength.",
-"Dynamic stretch":"Controlled moving stretches (leg swings, arm swings). Avoid bouncing. Prepares muscles for activity.",
-"Mobility session":"Light full-body movement focusing on joints. Improves flexibility and recovery.",
-"Back stretch":"Gently stretch lower back. Hold without bouncing. Helps reduce tension after workout.",
-"Shoulder mobility":"Arm swings, rotations, and light movements. Keeps shoulders flexible and injury-free.",
-"Pike push ups":"Push-up position with hips high. Lower head toward ground. Targets shoulders for climbing pushing strength.",
-"Squats":"Feet shoulder-width apart. Lower hips down, keep chest up. Builds leg strength for pushing on wall.",
-"Hip flexor stretch":"Step forward into lunge and push hips forward. Stretches front hip muscles.",
-"Lat stretch":"Reach arms overhead or hold bar and lean back. Stretches lats used heavily in climbing.",
-"Forearm stretch":"Extend arm and pull fingers back gently. Helps reduce forearm tightness from gripping.",
-"Shoulder stretch":"Pull arm across body or overhead. Relieves shoulder tension.",
-"Hamstring stretch":"Reach toward toes while keeping legs straight. Stretches back of legs.",
-"Quad stretch":"Pull one foot toward glutes. Keep knees close together. Stretches front thigh."
+
+"Jumping jacks":"Full body warm-up. Jump while spreading legs and raising arms overhead, then return. Keep movement light and rhythmic. Purpose: raise heart rate and prepare body for climbing.",
+
+"Arm circles":"Extend arms sideways and rotate in controlled circles (forward and backward). Start small, increase size. Purpose: warm shoulder joints and prevent injury during pulling movements.",
+
+"Wrist circles":"Rotate wrists slowly both directions. Keep fingers relaxed. Purpose: prepare finger tendons and wrists for gripping holds.",
+
+"Scapula pull ups":"Hang on bar with straight arms. Pull shoulders down and slightly back without bending elbows. Purpose: activate shoulder stabilizers and reduce injury risk when climbing.",
+
+"Climbing (Technique focus)":"Climb easy routes focusing on foot placement, balance, and smooth movement. Keep hips close to wall and use legs more than arms. Purpose: improve efficiency and conserve energy.",
+
+"Pull ups":"Grip bar shoulder-width. Pull until chin passes bar, then lower slowly. Avoid swinging. Purpose: build pulling strength for climbing. Tip: quality reps over quantity.",
+
+"Single-arm dumbbell row":"Place one hand on support, pull dumbbell toward hip. Keep back flat. Purpose: strengthen lats and improve unilateral pulling strength (important for uneven holds).",
+
+"Hanging leg raises":"Hang from bar and raise legs to 90° or higher. Keep core tight, avoid swinging. Purpose: build core tension for maintaining body position on wall.",
+
+"Light jog":"Slow jog to increase blood flow. Keep relaxed pace. Purpose: prepare body for cardio or endurance training.",
+
+"Hip rotation":"Rotate hips in controlled circles. Purpose: loosen hip joints for better movement and foot placement while climbing.",
+
+"Jogging":"Steady pace running. Maintain breathing rhythm. Purpose: improve endurance and recovery between climbs.",
+
+"Plank":"Hold straight body line (head to heels). Engage core, don’t let hips sag. Purpose: core stability for body tension on wall.",
+
+"Russian twist":"Sit and rotate torso side-to-side. Keep core tight. Purpose: improve rotational core strength and control.",
+
+"Arm swing":"Swing arms forward and backward in controlled motion. Purpose: loosen shoulders before climbing.",
+
+"Scapula activation":"Light scapula engagement (similar to scapula pull-ups but easier). Purpose: activate back muscles before load.",
+
+"Dead hang":"Hang from bar with full body weight. Slight shoulder engagement. Purpose: build grip endurance and finger strength.",
+
+"Towel hang":"Hang using towel over bar. Grip harder due to instability. Purpose: simulate climbing holds and improve grip strength.",
+
+"Single-arm farmer hold":"Hold dumbbell in one hand and stand upright. Keep core tight. Purpose: build grip strength and core stability (anti-tilt).",
+
+"Hammer curl (dumbbell)":"Curl dumbbell with neutral grip (thumb up). Purpose: strengthen forearms and brachialis for pulling strength.",
+
+"Dynamic stretch":"Controlled moving stretches (leg swings, arm swings). Avoid bouncing. Purpose: prepare muscles for movement.",
+
+"Mobility session":"Light full-body mobility work. Focus on joints (hips, shoulders, spine). Purpose: improve flexibility and reduce injury risk.",
+
+"Core (plank)":"Standard plank hold focusing on tight core and breathing. Purpose: reinforce core endurance for climbing stability.",
+
+"Back stretch":"Gently stretch lower back (e.g., child’s pose). Purpose: relieve tension after workouts.",
+
+"Shoulder mobility":"Light rotations and controlled movement. Purpose: keep shoulders flexible and reduce injury risk.",
+
+"Climbing (Power)":"Climb harder routes or explosive moves. Focus on dynamic movement and strength. Purpose: develop power and contact strength.",
+
+"Pike push ups":"Push-up with hips raised. Lower head toward floor. Purpose: build shoulder pushing strength (useful for mantles).",
+
+"Single-arm dumbbell shoulder press":"Press dumbbell overhead with one arm. Keep core tight. Purpose: improve shoulder strength and stability.",
+
+"Goblet squat (dumbbell)":"Hold dumbbell at chest and squat down. Keep chest up and knees stable. Purpose: build leg strength for pushing on footholds.",
+
+"Single-leg Romanian deadlift":"Hold dumbbell, hinge forward on one leg. Keep balance and back straight. Purpose: improve balance and posterior chain strength.",
+
+"Leg raises":"Lying or hanging leg raises. Keep movement controlled. Purpose: strengthen lower abs for climbing tension.",
+
+"Hip flexor stretch":"Lunge position, push hips forward. Purpose: loosen hips for better high steps.",
+
+"Lat stretch":"Reach overhead or hold bar and lean back. Purpose: stretch lats used heavily in pulling.",
+
+"Forearm stretch":"Extend arm and gently pull fingers back. Purpose: reduce tightness from gripping.",
+
+"Shoulder stretch":"Pull arm across body or overhead. Purpose: relieve shoulder tension.",
+
+"Hamstring stretch":"Reach toward toes while keeping legs straight. Purpose: improve flexibility for high foot placement.",
+
+"Quad stretch":"Pull foot toward glutes. Keep knees together. Purpose: stretch front thigh after leg work."
+
 };
 
 /* TIMER */
