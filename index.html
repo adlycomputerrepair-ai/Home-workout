@@ -44,35 +44,33 @@ let currentYear=2026;
 /* Workout plan */
 const workouts={
 
-"Mon":{ // HOME (light + technique)
-pre:"Light snack. Focus on easy movement.",
+"Mon":{ // HOME (LIGHT RECOVERY)
+pre:"Light snack. Focus on recovery and movement.",
 warmup:[
-{name:"Jumping jacks", sets:1, reps:"60 sec"},
+{name:"Light jog or walk", sets:1, reps:"5 min"},
 {name:"Arm circles", sets:1, reps:"30 sec"},
 {name:"Wrist circles", sets:1, reps:"30 sec"}
 ],
 main:[
-{name:"Light climbing / technique", sets:1, reps:"practice"},
-{name:"Pull ups", sets:3, reps:"easy"},
-{name:"Plank", sets:3, reps:"30 sec"}
+{name:"Mobility session", sets:1, reps:"10 min"},
+{name:"Plank", sets:2, reps:"30 sec"}
 ],
 cooldown:[
 {name:"Forearm stretch", sets:1, reps:"30 sec"},
 {name:"Shoulder stretch", sets:1, reps:"30 sec"}
 ],
-post:"Recovery focus. Light protein."
+post:"Recovery focus. Light protein + hydration."
 },
 
-"Tue":{ // 🏋️ GYM DAY 1 (PULL + CLIMB STRENGTH)
+"Tue":{ // HOME (PULL + STRENGTH)
 pre:"Banana or oats. Hydrate well.",
 warmup:[
 {name:"Light jog", sets:1, reps:"5 min"},
 {name:"Scapula pull ups", sets:2, reps:"10"}
 ],
 main:[
-{name:"Lat pulldown", sets:4, reps:"10"},
 {name:"Pull ups", sets:4, reps:"5-7"},
-{name:"Seated cable row", sets:3, reps:"10"},
+{name:"Single-arm dumbbell row", sets:3, reps:"10 each"},
 {name:"Dead hang", sets:3, reps:"30 sec"},
 {name:"Hanging leg raises", sets:3, reps:"10"}
 ],
@@ -83,20 +81,20 @@ cooldown:[
 post:"Protein + carbs."
 },
 
-"Wed":{ // HOME (CORE + CONDITIONING)
+"Wed":{ // 🧗 CLIMB DAY (TECHNIQUE + ENDURANCE)
 pre:"Light carbs.",
 warmup:[
-{name:"Light jog", sets:1, reps:"5 min"}
+{name:"Light jog", sets:1, reps:"5 min"},
+{name:"Wrist circles", sets:1, reps:"30 sec"}
 ],
 main:[
-{name:"Jogging", sets:1, reps:"3 km"},
-{name:"Plank", sets:3, reps:"45 sec"},
-{name:"Russian twist", sets:3, reps:"20"},
-{name:"Leg raises", sets:3, reps:"12"}
+{name:"Climbing (Technique focus)", sets:1, reps:"practice"},
+{name:"Climbing (Endurance laps)", sets:3, reps:"easy routes"},
+{name:"Plank", sets:3, reps:"45 sec"}
 ],
 cooldown:[
-{name:"Hamstring stretch", sets:1, reps:"30 sec"},
-{name:"Quad stretch", sets:1, reps:"30 sec"}
+{name:"Forearm stretch", sets:1, reps:"30 sec"},
+{name:"Lat stretch", sets:1, reps:"30 sec"}
 ],
 post:"Hydrate + balanced meal."
 },
@@ -121,7 +119,7 @@ cooldown:[
 post:"Protein. Focus forearm recovery."
 },
 
-"Fri":{ // 🏋️ GYM DAY 2 (PUSH + POWER)
+"Fri":{ // 🧗 CLIMB DAY (POWER)
 pre:"Bread + egg or yogurt.",
 warmup:[
 {name:"Jumping jacks", sets:1, reps:"60 sec"},
@@ -129,10 +127,8 @@ warmup:[
 ],
 main:[
 {name:"Climbing (Power)", sets:1, reps:"practice"},
-{name:"Chest press machine", sets:3, reps:"10"},
-{name:"Single-arm dumbbell shoulder press", sets:3, reps:"10 each"},
-{name:"Pike push ups", sets:3, reps:"8"},
-{name:"Tricep pushdown", sets:3, reps:"12"}
+{name:"Pull ups", sets:3, reps:"max"},
+{name:"Pike push ups", sets:3, reps:"8"}
 ],
 cooldown:[
 {name:"Shoulder stretch", sets:1, reps:"30 sec"},
@@ -141,41 +137,46 @@ cooldown:[
 post:"Protein within 1 hour."
 },
 
-"Sat":{ // HOME (LEGS + FULL BODY)
+"Sat":{ // 🏋️ GYM DAY (PULL + LEGS)
 pre:"Oatmeal or toast + eggs.",
 warmup:[
+{name:"Light jog", sets:1, reps:"5 min"},
 {name:"Dynamic stretch", sets:1, reps:"3 min"}
 ],
 main:[
+{name:"Lat pulldown", sets:4, reps:"10"},
+{name:"Seated cable row", sets:3, reps:"10"},
 {name:"Goblet squat (dumbbell)", sets:4, reps:"12"},
-{name:"Single-leg Romanian deadlift", sets:3, reps:"8 each"},
-{name:"Pull ups", sets:4, reps:"max"},
-{name:"Dead hang", sets:3, reps:"40 sec"},
-{name:"Plank", sets:3, reps:"40 sec"}
+{name:"Leg press machine", sets:3, reps:"10"},
+{name:"Dead hang", sets:3, reps:"40 sec"}
 ],
 cooldown:[
 {name:"Hip flexor stretch", sets:1, reps:"30 sec"},
-{name:"Back stretch", sets:1, reps:"30 sec"}
+{name:"Lat stretch", sets:1, reps:"30 sec"}
 ],
-post:"Recovery meal."
+post:"Recovery meal (protein + carbs)."
 },
 
-"Sun":{ // ACTIVE RECOVERY
-pre:"Light or empty stomach.",
+"Sun":{ // 🏋️ GYM DAY (PUSH + CORE)
+pre:"Light carbs or protein snack.",
 warmup:[
-{name:"Light jog", sets:1, reps:"5 min"}
+{name:"Light jog", sets:1, reps:"5 min"},
+{name:"Shoulder mobility", sets:1, reps:"10"}
 ],
 main:[
-{name:"Mobility session", sets:1, reps:"15 min"},
-{name:"Light climbing / easy routes", sets:1, reps:"practice"}
+{name:"Chest press machine", sets:3, reps:"10"},
+{name:"Shoulder press machine", sets:3, reps:"10"},
+{name:"Tricep pushdown", sets:3, reps:"12"},
+{name:"Plank", sets:3, reps:"45 sec"},
+{name:"Hanging leg raises", sets:3, reps:"10"}
 ],
 cooldown:[
-{name:"Full body stretch", sets:1, reps:"5 min"}
+{name:"Shoulder stretch", sets:1, reps:"30 sec"},
+{name:"Back stretch", sets:1, reps:"30 sec"}
 ],
-post:"Rest and hydrate."
+post:"Protein + hydration."
 }
 };
-
 
 /* Exercise info */
 const exerciseInfo={
